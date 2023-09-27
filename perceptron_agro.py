@@ -1,6 +1,5 @@
 from main import Perceptron
 import numpy as np
-import matplotlib.pyplot as plt
 import csv
 
 valores = []
@@ -12,9 +11,11 @@ with open("maiz_dataset.csv", newline="") as File:
     caract = list()
     for row in reader:
         etiquetas.append(row[2])
-    
+
 data_values = data[1:]
-lista_data_values_int = [[float(valor) for valor in sublista] for sublista in data_values]
+lista_data_values_int = [
+    [float(valor) for valor in sublista] for sublista in data_values
+]
 
 valores = np.array(lista_data_values_int)
 
@@ -29,25 +30,20 @@ for _ in range(100):  # Número de épocas de entrenamiento
         perceptron_and.propagacion(entradas)
         perceptron_and.actualizacion_coef(0.5, salida_deseada)
 
-
 ph = float(input("Ingrese el pH del suelo: "))
-humedad = float(input("Ingrese la humedad en porcentaje: "))  # Usar float para humedad si es un número decimal
+humedad = int(input("Ingrese la humedad en porcentaje: "))
 
 perceptron_and.propagacion(np.array([ph, humedad]))
 resultado = perceptron_and.salida
 valores = np.append(valores, [ph, humedad, resultado])
 print("Resultado:", resultado)
 
-
+"""
 # Abrir el archivo CSV en modo de escritura
 with open("maiz_dataset.csv", mode="a", newline="") as File:
     escritor_csv = csv.writer(File)
-
     # Escribe el nuevo elemento en una fila separada
     escritor_csv.writerow([ph, humedad, resultado])
 
 print("Nuevo valor agregado al archivo CSV.")
-
-
-
-
+"""
