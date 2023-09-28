@@ -16,6 +16,7 @@ data_values = data[1:]
 lista_data_values_int = [
     [float(valor) for valor in sublista] for sublista in data_values
 ]
+lista_data_values_int.pop()
 
 valores = np.array(lista_data_values_int)
 
