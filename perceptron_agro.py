@@ -5,12 +5,12 @@ import csv
 valores = []
 etiquetas = []
 
-with open("maiz_dataset.csv", newline="") as File:
+cultivo = input("Cultivo: ")
+
+with open("./datasets/" + cultivo + "_dataset.csv", newline="") as File:
     reader = csv.reader(File)
     data = list(reader)
     caract = list()
-    for row in reader:
-        etiquetas.append(row[2])
 
 data_values = data[1:]
 lista_data_values_int = [
@@ -24,12 +24,12 @@ valores = np.array(lista_data_values_int)
 perceptron_and = Perceptron(2)
 
 # Entrena el perceptrón con los datos
-for _ in range(100):  # Número de épocas de entrenamiento
+for _ in range(1000):  # Número de épocas de entrenamiento
     for i in range(len(valores)):
         entradas = valores[i, 0:2]
         salida_deseada = valores[i, 2]
         perceptron_and.propagacion(entradas)
-        perceptron_and.actualizacion_coef(0.5, salida_deseada)
+        perceptron_and.actualizacion_coef(0.1, salida_deseada)
 
 ph = float(input("Ingrese el pH del suelo: "))
 humedad = int(input("Ingrese la humedad en porcentaje: "))
@@ -39,12 +39,10 @@ resultado = perceptron_and.salida
 valores = np.append(valores, [ph, humedad, resultado])
 print("Resultado:", resultado)
 
-"""
 # Abrir el archivo CSV en modo de escritura
-with open("maiz_dataset.csv", mode="a", newline="") as File:
+with open("./datasets/" + cultivo + "_dataset.csv", mode="a", newline="") as File:
     escritor_csv = csv.writer(File)
     # Escribe el nuevo elemento en una fila separada
     escritor_csv.writerow([ph, humedad, resultado])
 
 print("Nuevo valor agregado al archivo CSV.")
-"""
