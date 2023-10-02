@@ -7,8 +7,8 @@ class Perceptron:
         self.n = n
 
     def propagacion(self, entradas):
-        self.salida = 1 * (self.pesos.dot(entradas) > 0)
         self.entradas = entradas
+        self.salida = 1 * (self.pesos.dot(entradas) > 0)
 
     def actualizacion_coef(self, alfa, salidad):
         for i in range(0, self.n):
